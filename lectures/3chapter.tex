@@ -1,0 +1,252 @@
+\section{Уравнения Эйлера-Лагранжа для системы.\\
+Нуль-лагранжиан. Детерминант как нуль-лагранжиан}
+\label{sec:Chapter3} \index{Chapter3}
+
+\subsection{Уравнения Эйлера-Лагранжа для системы}
+\noindent$M^{m \times n}$ --- Пространство вещественных $m \times n$ матриц.\\
+$U \subset \R^n$ --- ограниченное открытое множество с гладкой границей
+$\partial U$. \\
+Лагранжиан имеет вид:
+$$L \colon M^{m \times n} \times \R^m \times \overline{U} \to \R, \quad
+L(P, z, x) = L(p_1^1, \dots, p_n^m, z^1, \dots, z^m, x_1, \dots, x_n),$$ 
+$$P\in M^{m \times n},
+\quad z\in\R^m, 
+\quad x\in U$$ 
+Рассмотрим функционал:
+\begin{equation}
+    I[w] = \int_U L(Dw(x), w(x), x) \, dx,
+    \quad Dw(x) = \begin{pmatrix}
+        w^1_{x_1} & w^1_{x_2} & \dots & w^1_{x_n} \\
+        w^2_{x_1} & w^2_{x_2} & \dots & w^2_{x_n} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        w^m_{x_1} & w^m_{x_2} & \dots & w^m_{x_n}
+    \end{pmatrix} %% = \left( w_{x_i}^k \right)_{k=1,\dots,m; \, i=1,\dots,n}
+\end{equation}
+где $w \colon \overline{U} \to \R^m$, $w(x) = (w_1(x), \dots, w_m(x))$
+--- гладкая вектор-функция ($w \in C^\infty(\overline{U}, \R^m)$), 
+минимизирующая функционал $I[w]$ на множестве функций с заданными 
+значениями на границе области:
+\begin{equation}
+    \mathcal{M} = \{ w \in C^\infty(\overline{U}, \R^m) \mid w|_{\partial U} = g \},
+    \quad g \colon \partial U \to \R^m
+\end{equation}
+
+Варьируя функционал $i(\tau) = I[w + \tau v]$ по направлениям 
+$v(x) \in C_0^\infty(U, \R^m)$ и приравнивая производную к нулю, 
+получаем систему уравнений Эйлера-Лагранжа:
+\begin{equation}
+    - \sum_{i=1}^n \frac{\partial}{\partial x_i} L_{p_i^k} (Dw, w, x) + L_{z^k}(Dw, w, x) = 0, \quad \forall k = 1, \dots, m.
+\end{equation}
+
+\textbf{Подробный вывод:}\\
+Фиксируем произвольную вектор-функцию 
+$v(x) = (v^1(x), \dots, v^m(x)) \in C_0^\infty(U, \R^m)$. 
+Рассмотрим однопараметрическое семейство функций $w(x) + \tau v(x)$, 
+где $\tau \in \R$. 
+Определим функцию одной переменной $i(\tau)$: 
+\begin{equation}
+i(\tau) = I[w + \tau v] = 
+  \int_U L\big(Dw(x) + \tau Dv(x), w(x) + \tau v(x), x\big) , dx.
+\end{equation}
+
+Поскольку при $\tau = 0$ функция $w(x)$ доставляет минимум функционала, 
+точка $\tau = 0$ является точкой локального экстремума для функции $i(\tau)$. 
+Следовательно, по необходимому условию экстремума: 
+\begin{equation}
+\frac{di(\tau)}{d\tau} \bigg|_{\tau=0} = 0.
+\end{equation}
+Используя правило дифференцирования сложной функции, 
+продифференцируем подинтегральное выражение по $\tau$. 
+\begin{equation}
+\frac{di(\tau)}{d\tau} = 
+  \int_U \sum_{k=1}^m \left\{ 
+    \sum_{i=1}^n L_{p_i^k}(Dw, w, x) v_{x_i}^k + L_{z^k}(Dw, w, x) v^k 
+  \right\} dx = 0
+\end{equation}
+Применим операцию интегрирования по частям к первому слагаемому 
+под интегралом для каждой компоненты $v_{x_i}^k$:
+\begin{equation}
+    \int_U L_{p_i^k}(Dw, w, x) v_{x_i}^k \, dx = 
+     -\int_U (L_{p_i^k}(Dw, w, x))_{x_i} v^k \, dx
+\end{equation}
+где $\nu$ --- вектор внешней нормали к границе области. 
+Поскольку направление варьирования на границе зануляется 
+($\forall k \colon v^k|_{\partial U} = 0$), поверхностный интеграл полностью 
+обращается в ноль.\\
+Подставляя преобразованное выражение обратно в общее интегральное равенство 
+вариации, меняем порядок суммирования по индексам $i$ и $k$:
+\begin{equation}
+    \int_U \sum_{k=1}^m \left\{ - \sum_{i=1}^n (L_{p_i^k}(Dw, w, x))_{x_i} + L_{z^k}(Dw, w, x) \right\} v^k(x) \, dx = 0
+\end{equation}
+
+Так как компоненты вектор-функции $v^k(x)$ выбираются независимо 
+друг от друга для каждого $k = 1, \dots, m$, мы можем последовательно 
+применять лемму Дюбуа-Раймона к каждой компоненте отдельно. 
+В силу непрерывности лагранжиана и его производных, выражение в фигурных 
+скобках обязано тождественно зануляться в любой точке области $U$.
+
+Таким образом, получаем систему уравнений Эйлера-Лагранжа:
+\begin{equation}
+    - \sum_{i=1}^n (L_{p_i^k} (Dw, w, x))_{x_i} + L_{z^k}(Dw, w, x) = 0, \quad \forall k = 1, \dots, m.
+\end{equation}
+
+
+\subsection{Нуль-лагранжиан}
+\begin{definition}
+    Функция $L(P, z, x)$ называется \textit{нуль-лагранжианом}, 
+    если система уравнений Эйлера-Лагранжа
+    \begin{equation}
+        - \sum_{i=1}^n \frac{\partial}{\partial x_i} L_{p_i^k} (Dw, w, x) + 
+        L_{z^k}(Dw, w, x) = 0 \quad (k = 1, \dots, m)
+    \end{equation}
+    выполняется тождественно для \textbf{любой} гладкой функции $w(x)$.
+\end{definition}
+
+\begin{theorem}
+    Пусть $L(P, z, x)$ --- нуль-лагранжиан. 
+    Если $u(x)$ и $\tilde{u}(x)$ --- гладкие функции, совпадающие на границе 
+    области (то есть $u(x) = \tilde{u}(x)$ при $x \in \partial U$), 
+    то значения функционала на них равны:
+    \begin{equation}
+        I[u] = I[\tilde{u}].
+    \end{equation}
+\end{theorem}
+
+\begin{proof}
+    Рассмотрим вспомогательную функцию одной переменной:
+    \begin{equation}
+        i(\tau) = I[\tau u + (1-\tau)\tilde{u}] 
+        = \int_U L(\tau Du + (1-\tau)D\tilde{u}, \tau u + (1-\tau)\tilde{u}, x) \, dx.
+    \end{equation}
+    Продифференцируем её по параметру $\tau$:
+\begin{equation}
+\begin{split}
+    \frac{di(\tau)}{d\tau} = \int_U \bigg\{ 
+    &\sum_{i=1}^n \sum_{k=1}^m L_{p_i^k}(
+      \tau Du + (1-\tau)D\tilde{u}, \tau u + (1-\tau)\tilde{u}, x
+      )(u_{x_i}^k - \tilde{u}_{x_i}^k) + \\
+    &\sum_{k=1}^m L_{z^k}(
+      \tau Du + (1-\tau)D\tilde{u}, \tau u + (1-\tau)\tilde{u}, x
+      ) (u^k - \tilde{u}^k)
+    \bigg\} dx.
+\end{split}
+\end{equation}
+
+Проинтегрируем первое слагаемое по частям. 
+Поскольку $u^k - \tilde{u}^k = 0$ на границе $\partial U$, 
+внеинтегральные члены обратятся в ноль:
+
+\begin{equation}
+\begin{split}
+    \frac{di(\tau)}{d\tau} = \int_U \sum_{k=1}^m \bigg( 
+    &- \sum_{i=1}^n \frac{\partial}{\partial x_i} L_{p_i^k}(
+      \tau Du + (1-\tau)D\tilde{u}, \tau u + (1-\tau)\tilde{u}, x
+      ) + \\
+    &L_{z^k}(
+      \tau Du + (1-\tau)D\tilde{u}, \tau u + (1-\tau)\tilde{u}, x
+      ) 
+    \bigg) (u^k - \tilde{u}^k) \, dx.
+\end{split}
+\end{equation}
+
+Так как $L$ --- нуль-лагранжиан, выражение в больших скобках равно нулю 
+для любой гладкой функции, в том числе для выпуклой комбинации 
+$\tau u + (1-\tau)\tilde{u}$. Значит, $\frac{di(\tau)}{d\tau} = 0$.
+Отсюда $i(\tau) \equiv \mathrm{const}$, и следовательно, $i(1) = i(0)$, 
+то есть $I[u] = I[\tilde{u}]$.
+\end{proof}
+
+\subsection{Детерминант как нуль-лагранжиан}
+
+Введем обозначения. Пусть $A$ --- квадратная $n \times n$ матрица. Матрица алгебраических дополнений обозначается как $\operatorname{cof} A$, где ее элемент $(\operatorname{cof} A)_i^k = (-1)^{i+k} M_i^k$ ($M_i^k$ --- минор, полученный вычеркиванием $k$-й строки и $i$-го столбца). 
+Известно, что для дифференциала определителя выполняется соотношение:
+\begin{equation}
+    \frac{\partial \det P}{\partial p_i^k} = (\operatorname{cof} P)_i^k.
+\end{equation}
+
+\begin{lemma}[о строках с нулевой дивергенцией]
+    Пусть $u \colon \R^n \to \R^n$ --- гладкая вектор-функция. Тогда дивергенция любой строки матрицы алгебраических дополнений якобиана равна нулю:
+    \begin{equation}
+        \sum_{i=1}^n \frac{\partial}{\partial x_i} (\operatorname{cof} Du)_i^k = 0, \quad \forall k = 1, \dots, n.
+    \end{equation}
+\end{lemma}
+\begin{proof}
+Для любой матрицы $P \in \R^{n \times n}$ справедливо:
+\begin{equation}
+    \det P \cdot \delta_j^k = \sum_{i=1}^n p_i^k (\operatorname{cof} P)_i^j
+\end{equation}
+где $\delta_j^k$ --- символ Кронекера. Также напомним известное свойство дифференцирования определителя по элементам матрицы:
+\begin{equation}
+    (\det P)_{p_i^k} = (\operatorname{cof} P)_i^k
+\end{equation}
+
+Положим $P = Du(x)$. Тогда компоненты матрицы представляют собой частные производные по координатам: $p_i^k = u^k_{x_i}$. Подставив их в исходное алгебраическое тождество, получаем выражение:
+\begin{equation}
+    \det(Du) \cdot \delta_j^k = \sum_{i=1}^n u^k_{x_i} (\operatorname{cof} Du)_i^j
+\end{equation}
+
+Продифференцируем это тождество по переменной $x_s$:
+\begin{equation}
+    (\det(Du))_{x_s} \cdot \delta_j^k = \sum_{i=1}^n \left( u^k_{x_i x_s} (\operatorname{cof} Du)_i^j + u^k_{x_i} ((\operatorname{cof} Du)_i^j)_{x_s} \right)
+\end{equation}
+
+Распишем полную производную определителя $(\det(Du))_{x_s}$ по правилу дифференцирования сложной функции, используя свойство $(\det P)_{p_i^k} = (\operatorname{cof} P)_i^k$:
+\begin{equation}
+    (\det(Du))_{x_s} = \sum_{m=1}^n \sum_{l=1}^n (\operatorname{cof} Du)_l^m u^m_{x_l x_s}
+\end{equation}
+
+Свернем теперь индексы, положив $k = j$ и просуммировав по нему. В силу 
+сокращений и тождественного совпадения сумм, содержащих вторые смешанные 
+производные $u^k_{x_i x_s}$, члены с ними взаимно уничтожаются из левой и
+правой частей уравнения. Это приводит к соотношению:
+\begin{equation}
+    \sum_{i=1}^n u^k_{x_i} \left( \sum_{s=1}^n ((\operatorname{cof} Du)_i^j)_{x_s} \right) = 0
+\end{equation}
+
+Если $\det(Du) \neq 0$, то
+\begin{equation}
+    \sum_{i=1}^n ((\operatorname{cof} Du)_i^k)_{x_i} = 0, \quad \forall k = 1, \dots, n.
+\end{equation}
+
+Если $\det(Du) = 0$, то $\det(Du) + \epsilon I \neq 0$.
+\end{proof}
+
+\begin{theorem}
+    Лагранжиан $L(P) = \det P$ является нуль-лагранжианом.
+\end{theorem}
+
+\begin{proof}
+    Функция $L$ зависит только от матрицы производных $P = Du$. Проверим для нее выполнение системы уравнений Эйлера-Лагранжа:
+    \begin{equation}
+        - \sum_{i=1}^n \frac{\partial}{\partial x_i} L_{p_i^k}(Du) = 0.
+    \end{equation}
+    Подставляя частные производные лагранжиана, получаем:
+    \begin{equation}
+        - \sum_{i=1}^n \frac{\partial}{\partial x_i} \left( \frac{\partial \det P}{\partial p_i^k} \middle|_{P = Du} \right) = - \sum_{i=1}^n \frac{\partial}{\partial x_i} (\operatorname{cof} Du)_i^k = 0.
+    \end{equation}
+    Последнее равенство справедливо тождественно для любой гладкой функции $u(x)$ в силу леммы о строках с нулевой дивергенцией. Таким образом, $L(P) = \det P$ --- нуль-лагранжиан.
+\end{proof}
+
+\textbf{Пример Больца}\\
+Рассмотрим вариационную задачу:
+\begin{equation}
+    I[x(t)] = \int_0^1 \left[ \left(1 - \left(\dot{x}\right)^2\right)^2 + x^2(t) \right] dt \rightarrow \min, \quad x(0) = x(1) = 0.
+\end{equation}
+
+Так как подынтегральная функция является суммой квадратов, $I[x] \ge 0$. 
+
+Построим минимизирующую последовательность «пилообразных» функций 
+$x_n(t) = \int_0^1 \operatorname{sign}(\sin(23n\pi \tau)) \, d\tau$. 
+На линейных участках $\dot{x}_n(t) = \pm 1$, поэтому:
+\begin{equation}
+    I[x_n] = \int_0^1 x_n^2(t) \, dt \xrightarrow{n \to \infty} 0.
+\end{equation}
+
+Последовательность равномерно сходится к нулю ($x_n(t) \rightrightarrows 0$), 
+и значение функционала на ней стремится к нулю. 
+Однако для предельной функции $x(t) \equiv 0$ ($\dot{x}(t) \equiv 0$) 
+значение функционала строго положительно:
+\begin{equation}
+    I[0] = \int_0^1 \left[ (1 - 0)^2 + 0 \right] dt = 1.
+\end{equation}
+
