@@ -1,6 +1,6 @@
 PDFS = main.pdf
 
-.PHONY: all clean
+.PHONY: all clean clean-all
 
 all: main.pdf
 
@@ -13,8 +13,10 @@ MAIN = main.tex
 %.pdf: $(MAIN) $(PARTS) $(INCLUDES)
 	latexrun/latexrun $*
 
+# Cleans auxiliary files but keeps main.pdf
 clean:
-# this is a bad practice, of course, but it's enough for our purposes
-	cp main.pdf tmp_makefile_main.pdf
+	latexrun/latexrun --clean
+
+# Wipes everything, including main.pdf
+clean-all:
 	latexrun/latexrun --clean-all
-	mv tmp_makefile_main.pdf main.pdf
