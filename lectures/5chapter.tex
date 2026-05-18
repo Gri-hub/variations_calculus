@@ -19,15 +19,62 @@ $p = (p_1, \dots, p_n) \in \R^n$.
 Пусть характеристика задана параметрически как $x(s)$. Обозначим значения 
 функции и её градиента на кривой как $z(s) = u(x(s))$ и $p(s) = Du(x(s))$.
     
-Дифференцируя функции по параметру $s$ и приравнивая их к полному дифференциалу 
-исходного уравнения $F$ по $x_i$, получаем фундаментальную 
-\textit{характеристическую систему}:
-\begin{equation} \label{eq::2}
-    \System{
-        \frac{dx_i}{ds} &= F_{p_i}(p, z, x) \\
-        \frac{dz}{ds} &= \sum_{i=1}^n p_i F_{p_i}(p, z, x) \\
-        \frac{dp_i}{ds} &= -F_{x_i}(p, z, x) - p_i F_z(p, z, x)
-    }
+Зададим уравнение для пространственных координат характеристической кривой $x(s)$ следующим образом:
+\begin{equation}
+\frac{dx_j}{ds} = \frac{\partial F}{\partial p_j}(p, z, x),
+\quad \text{или в векторной форме } \frac{dx}{ds} = D_p F(p, z, x)
+\end{equation}
+
+Теперь найдем, как меняется градиент $p_i(s)$ вдоль этой кривой. 
+Продифференцируем компоненту $p_i(s) = \frac{\partial u(x(s))}{\partial x_i}$
+по параметру $s$, используя правило дифференцирования сложной функции:
+\begin{equation} \label{eq::dp_ds_chain}
+\frac{dp_i(s)}{ds} = \frac{d}{ds} \left[ \frac{\partial u(x(s))}{\partial x_i} \right] = \sum_{j=1}^n \frac{\partial^2 u(x(s))}{\partial x_j \partial x_i} \frac{dx_j}{ds}
+\end{equation}
+
+С другой стороны, поскольку исходное уравнение $F(Du, u, x) = 0$ должно
+выполняться тождественно, его полная производная по любой пространственной
+переменной $x_i$ равна нулю. Продифференцируем функцию $F(p(x), z(x), x)$:
+\begin{equation}
+\frac{d}{dx_i} F(p(x), z(x), x) = \sum_{j=1}^n \frac{\partial F}{\partial p_j} \frac{\partial p_j}{\partial x_i} + \frac{\partial F}{\partial z} \frac{\partial z}{\partial x_i} + \frac{\partial F}{\partial x_i} = 0
+\end{equation}
+
+Учитывая определения $p_j = \frac{\partial u}{\partial x_j}$, $z = u$, а также $\frac{\partial p_j}{\partial x_i} = \frac{\partial^2 u}{\partial x_j \partial x_i}$ и $p_i = \frac{\partial z}{\partial x_i}$, перепишем это тождество:
+\begin{equation} \label{eq::F_diff}
+\sum_{j=1}^n \frac{\partial F}{\partial p_j} \frac{\partial^2 u}{\partial x_j \partial x_i} + \frac{\partial F}{\partial z} p_i + \frac{\partial F}{\partial x_i} = 0
+\end{equation}
+
+Если мы выберем вектор скорости кривой $\frac{dx_j}{ds} = \frac{\partial F}{\partial p_j}$, то первая сумма в уравнении \eqref{eq::F_diff} в точности совпадет с выражением для $\frac{dp_i(s)}{ds}$ из \eqref{eq::dp_ds_chain}. Подставляя $\frac{dp_i}{ds}$ в \eqref{eq::F_diff}, получаем дифференциальное уравнение для $p_i$:
+\begin{equation}
+\frac{dp_i(s)}{ds} + \frac{\partial F}{\partial z} p_i + \frac{\partial F}{\partial x_i} = 0 \implies \frac{dp_i(s)}{ds} = -\frac{\partial F}{\partial x_i} - \frac{\partial F}{\partial z} p_i
+\end{equation}
+
+Выведем уравнение для изменения значения функции $z(s)$ вдоль характеристики. Дифференцируя $z(s) = u(x(s))$ по $s$, получаем:
+\begin{equation}
+\frac{dz(s)}{ds} = \frac{d}{ds}(u(x(s))) = \sum_{i=1}^n \frac{\partial u(x(s))}{\partial x_i} \frac{dx_i}{ds}
+\end{equation}
+Так как $\frac{\partial u}{\partial x_i} = p_i$ и $\frac{dx_i}{ds} = \frac{\partial F}{\partial p_i}$, окончательно имеем:
+\begin{equation}
+\frac{dz}{ds} = \sum_{i=1}^n p_i \frac{\partial F}{\partial p_i}
+\end{equation}
+
+Объединяя все выведенные компоненты, получаем фундаментальную \textit{характеристическую систему} уравнений:
+\begin{equation} \label{eq::char_system}
+\begin{cases}
+\begin{aligned}
+\frac{dx_i}{ds} &= F_{p_i}(p, z, x) \\
+\frac{dz}{ds} &= \sum_{i=1}^n p_i F_{p_i}(p, z, x) \\
+\frac{dp_i}{ds} &= -F_{x_i}(p, z, x) - p_i F_z(p, z, x)
+\end{aligned}
+\end{cases}
+  \quad \text{или} \quad 
+\begin{cases}
+\begin{aligned}
+    \frac{dx}{ds} &= D_p F(p, z, x) \\
+    \frac{dz}{ds} &= \langle p, D_p F(p, z, x) \rangle \\
+    \frac{dp}{ds} &= -D_x F(p, z, x) - p F_z(p, z, x)
+\end{aligned}
+\end{cases}
 \end{equation}
 
 \begin{theorem}[О структуре характеристических уравнений]
@@ -39,7 +86,7 @@ $p = (p_1, \dots, p_n) \in \R^n$.
     \end{equation}
     то тройка функций $(p(s), z(s), x(s))$, где $z(s) = u(x(s))$ и $p(s) = Du(x(s))$, 
     удовлетворяет характеристической системе обыкновенных дифференциальных 
-    уравнений \eqref{eq::2}.
+    уравнений \eqref{eq::char_system}.
 \end{theorem}
 
 \subsection{Примеры систем характеристик}
@@ -64,3 +111,253 @@ $p = (p_1, \dots, p_n) \in \R^n$.
     }
 \end{equation}
 Важным свойством квазилинейных уравнений является то, что подсистема для $x$ и $z$ полностью отщепляется от дифференциальных уравнений на $p$, что существенно облегчает её интегрирование.
+
+\subsection{Нехарактеристические граничные условия}
+
+\begin{theorem}[Напоминание: Теорема о неявной функции] \label{th::implicit}
+Пусть отображение $G(p, y) \colon \mathbb{R}^n_p \times \mathbb{R}^{n-1}_y \to \mathbb{R}^n$
+является непрерывно дифференцируемым ($C^1$) в некоторой окрестности точки
+$(p^0, y^0) \in \mathbb{R}^n \times \mathbb{R}^{n-1}$, причем выполнено равенство:
+\begin{equation}
+  G(p^0, y^0) = 0.
+\end{equation}
+Если матрица Якоби отображения $G$ по переменным $p$ в точке $(p^0, y^0)$ является 
+невырожденной, то есть её якобиан отличен от нуля:
+\begin{equation}
+\det D_p G(p^0, y^0) \neq 0,
+\end{equation}
+то существуют открытая окрестность $W \subset \mathbb{R}^{n-1}$ точки $y^0$,
+открытая окрестность $V \subset \mathbb{R}^n$ точки $p^0$ и единственное
+  отображение $q \colon W \to V$ класса $C^1$, такие что:
+\begin{enumerate}
+  \item $q(y^0) = p^0$;
+  \item для всех $y \in W$ справедливо тождество $G(q(y), y) \equiv 0$.
+\end{enumerate}
+\end{theorem}
+
+\textbf{1. Выпрямление границы}
+
+Определим область $U = \{y = (y_1, \dots, y_n) \mid y_n \ge \gamma - \varphi(y_1, \dots, y_{n-1})\}$
+и ее границу $\Gamma = \{y = (y_1, \dots, y_n) \mid y_n = \gamma - \varphi(y_1, \dots, y_{n-1})\}$.
+Здесь предполагается, что функция $\varphi(\cdot)$ принадлежит классу гладкости $C^k$, где $k \ge 2$.
+Зафиксируем на границе точку $y^0$ и зададим начальное значение функции 
+$z^0 = g(y_1^0, \dots, y_{n-1}^0)$. Компоненты вектора начального градиента
+вдоль выпрямленной границы задаются частными производными: $p_i^0 = \frac{\partial \varphi(y_1^0, \dots, y_{n-1}^0)}{\partial y_i}$ для $i = 1, \dots, n-1$.
+Недостающую нормальную компоненту $p_n^0$ находим из исходного дифференциального 
+уравнения:
+
+
+$$F(p_1^0, \dots, p_{n-1}^0, p_n^0, z^0, x^0) = 0$$
+
+Согласно теореме о неявной функции \eqref{th::implicit}, для локального разрешения этого уравнения 
+относительно $p_n$, производная функции $F$ по этому аргументу должна быть отлична 
+от нуля: $\frac{\partial F}{\partial p_n}(p^0, z^0, x^0) \neq 0$. В векторной 
+форме это требование эквивалентно тому, что скалярное произведение вектора 
+нормали к границе и градиента функции $F$ по переменным $p$ не равно нулю: 
+$\langle \nu(x^0), \nabla_p F(p^0, z^0, x^0) \rangle \neq 0$.
+
+\textbf{2. Граничные условия характеристической системы}\\
+\begin{equation} \label{eq::2}
+\System{
+    &F(Du, u, x) = 0, \quad x \in U, \\
+    &u\big|_{\Gamma} = g,
+}
+\end{equation}
+
+Введем диффеоморфизмы $\Phi \colon \mathbb{R}^n \to \mathbb{R}^n$ и обратный к 
+нему $\Psi = \Phi^{-1} \colon \mathbb{R}^n \to \mathbb{R}^n$, которые локально 
+выпрямляют границу. Рассмотрим функции $u: U\to\R$ и $v(y) = u(\Psi(y))$.
+По правилу дифференцирования сложной функции их градиенты связаны как $Du(x) = Dv(y) D\Phi(x)$.
+Подставляя это выражение в исходное уравнение, получаем его представление в новых координатах:
+
+
+$$F(Dv(y)D\Phi(\Psi(y)), v(y), \Psi(y)) = 0$$
+
+\begin{definition}
+  Граничное условие называется \textit{нехарактеристическим} в точке 
+  $x^0 \in \Gamma$, если вектор $p^0$, найденный из описанной выше 
+  процедуры, удовлетворяет условию:
+  \begin{equation}
+      \left\langle \nu(x^0), \nabla_p F(p^0, z^0, x^0) \right\rangle \neq 0,
+  \end{equation}
+  где $\nu(x^0)$ --- вектор нормали к поверхности $\Gamma$ в точке $x^0$.
+\end{definition}
+
+В случае локально выпрямленной границы $\Gamma = \{x_n = 0\}$, условие 
+нехарактеристичности принимает простой вид:
+\begin{equation}
+    \frac{\partial F}{\partial p_n}(p^0, z^0, x^0) \neq 0.
+\end{equation}
+Это условие, согласно теореме о неявной функции, гарантирует возможность 
+локально разрешить уравнение $F(p^0, z^0, x^0) = 0$ относительно $p_n^0$.
+
+
+
+
+\begin{definition}
+Будем говорить, что граница $\partial U$ принадлежит классу $C^k$ ($k \ge 2$),
+если для любой точки $x^0 \in \partial U$ существуют число $r > 0$ и функция 
+$\gamma \colon \mathbb{R}^{n-1} \to \mathbb{R}$ класса $C^k$ такие, что 
+  (при необходимости после поворота и перенумерации координатных осей):
+\begin{equation}
+    U \cap B(x^0, r) = \left\{ x \in B(x^0, r) \;\middle|\; x_n > \gamma(x_1, \dots, x_{n-1}) \right\},
+\end{equation}
+% а локальное уравнение самой границы в этом шаре задается как:
+% \begin{equation}
+%     \partial U \cap B(x^0, r) = \left\{ x \in B(x^0, r) \;\middle|\; x_n = \gamma(x_1, \dots, x_{n-1}) \right\}.
+% \end{equation}
+\end{definition}
+
+\begin{definition}
+Распрямление границы задается следующей заменой координат: 
+  $y_i = x_i = \Phi_i(x)$ для $i = 1, \dots, n-1$ и $y_n = x_n - \gamma(x_1, \dots, x_{n-1}) = \Phi_n(x)$.
+\end{definition}
+
+\textbf{3. Лемма о характеристических граничных условиях}
+
+\begin{lemma}
+Если в точке $x^0$ выполнено условие нехарактеристичности 
+$F_{p_n}(p^0, z^0, x^0) \neq 0$ и $F(p^0, z^0, x^0) \neq 0$, то для всех $y \in \Gamma$,
+достаточно близких к $x^0$, существует единственное решение системы:
+  \begin{equation}
+    \begin{cases}
+      q_i(y) = \frac{\partial g(y)}{\partial y_i}, \quad i = 1, \dots, n-1, \\
+      F(q(y), g(y), y) = 0.
+    \end{cases}
+  \end{equation}
+\end{lemma}
+\begin{proof}
+Для доказательства разрешимости этой системы относительно неизвестных функций $q(y)$ 
+вводится вспомогательное векторное отображение 
+$$G(p, y) = (G_1(p, y), \dots, G_n(p, y))^T \colon \mathbb{R}^n \times \mathbb{R}^{n-1} \to \mathbb{R}^n$$
+компоненты которого имеют вид:
+\begin{equation}
+  \begin{cases}
+    G_i(p, y) = p_i - \frac{\partial g(y)}{\partial y_i} \quad (i = 1, \dots, n-1),\\
+    \quad G_n(p, y) = F(p, g(y), y).
+  \end{cases}
+\end{equation}
+Тогда задача сводится к нахождению корней неявной системы уравнений $G(p^0, x^0) = 0$.
+
+Найдем матрицу Якоби $D_p G(p^0, x^0)$. В первых $n-1$ строках на главной диагонали 
+стоят единицы, а последняя строка состоит из частных производных исходного
+уравнения $F_{p_1}(p^0, x^0), \dots, F_{p_n}(p^0, x^0)$.
+\begin{equation}
+D_p G(p^0, x^0) = \begin{pmatrix}
+1 & 0 & \dots & 0 & 0 \\
+0 & 1 & \dots & 0 & 0 \\
+\vdots & \vdots & \ddots & \vdots & \vdots \\
+0 & 0 & \dots & 1 & 0 \\
+F_{p_1} & F_{p_2} & \dots & F_{p_{n-1}} & F_{p_n}
+\end{pmatrix}.
+\end{equation}
+Определитель этой матрицы равен:
+$$\det D_p G(p^0, x^0) = F_{p_n}(p^0, x^0)$$
+
+Поскольку $F_{p_n} \neq 0$, то по теореме о неявной функции \eqref{th::implicit}
+существует единственная гладкая зависимость 
+начального градиента $q(y)$ от точек границы $\Gamma$, что доказывает лемму.
+\end{proof}
+
+\textbf{4. Следствие о локальной обратимости}
+\begin{corollary}
+Пусть выполнено условие нехарактеристичности $F_{p_n}(p^0, z^0, x^0) \neq 0$. 
+Тогда существуют открытый интервал $I \subset \mathbb{R}$, содержащий ноль 
+($0 \in I$), окрестность $W \subset \Gamma \subset \mathbb{R}^{n-1}$ точки 
+$x^0$ на границе и открытая окрестность $\Omega \subset \mathbb{R}^n$ точки
+$x^0$, такие что для любого $x \in \Omega$ существует единственная пара
+переменных $s \in I$ и $y \in W$, для которых выполняется равенство:
+\begin{equation}
+    x = x(y, s),
+\end{equation}
+где вектор-функция $x(y, s) \in C^2$ является решением характеристической системы.
+\end{corollary}
+
+\begin{proof}
+Рассмотрим отображение характеристик $x(y, s)$ с заданным начальным условием
+$x(y, 0) = (y, 0)$. Вычислим матрицу Якоби этого преобразования в начальной
+точке $(x^0, 0)$.
+
+Частные производные по пространственным координатам вдоль выпрямленной
+границы равны:
+\begin{equation}
+    \frac{\partial x_j}{\partial y_i} = \delta_{ij} \quad \text{при } i = 1, \dots, n-1.
+\end{equation}
+Производная по параметру вдоль траектории $s$ задается непосредственно самой
+характеристической системой \eqref{eq::char_system}:
+\begin{equation}
+    \frac{\partial x_j}{\partial s} = F_{p_j}(p^0, z^0, x^0).
+\end{equation}
+
+Таким образом, определитель матрицы Якоби $D x(x^0, 0)$ совпадает с частной
+производной функции $F$ по нормальной компоненте импульса:
+\begin{equation}
+    \det D x(x^0, 0) = F_{p_n}(p^0, z^0, x^0).
+\end{equation}
+
+Так как по условию нехарактеристичности $F_{p_n} \neq 0$, определитель матрицы
+Якоби отличен от нуля ($\det D x \neq 0$). Следовательно, по теореме об
+обратной функции \eqref{th::implicit}отображение $(y, s) \mapsto x(y, s)$ является локальным диффеоморфизмом класса $C^2$, отображающим область $W \times I$ на некоторую открытую окрестность $\Omega \subset \mathbb{R}^n$ точки $x^0$. 
+
+Это гарантирует, что для каждой точки $x \in \Omega$ существует единственное значение параметра вдоль характеристики $s \in I$ и единственная точка старта на границе $y \in W$, однозначно определяющие проходящую через нее интегральную кривую $x(y,s)$.
+
+\end{proof}
+
+\subsection{Локальная теорема существования}
+
+\begin{theorem}[Локальная теорема существования]
+    Пусть $\Gamma$ --- гладкая поверхность, а функции $F$ и $g$
+    достаточно гладкие. Если в точке $x^0 \in \Gamma$ выполнено
+    условие нехарактеристичности $F_{p_n}(p^0, z^0, x^0) \neq 0$,
+    то в некоторой окрестности точки $x^0$ существует единственное
+    решение $u(x)$ задачи Коши $F(Du, u, x) = 0$, $u\big|_{\Gamma} = g(x)$.
+\end{theorem}
+
+\begin{proof}
+    Не умаляя общности, будем считать, что граница локально выпрямлена и
+    совпадает с гиперплоскостью $y_n = 0$. Пусть 
+    $y = (y_1, \dots, y_{n-1}, 0)$ --- локальные координаты на $\Gamma$ в окрестности $x^0$.
+    
+    Рассмотрим характеристическую систему, выпущенную из точек границы.
+    Решения этой системы зависят от начальной точки $y \in \Gamma$ и параметра вдоль характеристики $s$:
+    $x = x(y, s)$, $z = z(y, s)$, $p = p(y, s)$.
+    При $s = 0$ выполняются начальные условия:
+    \begin{equation}
+        x(y, 0) = (y, 0), \quad z(y, 0) = g(y), \quad p(y, 0) = p^0(y).
+    \end{equation}
+    
+    Вычислим матрицу Якоби преобразования $x = x(y, s)$ в точке $s = 0$.
+    Дифференцируя по касательным переменным $y_i$, получаем
+    $\frac{\partial x_j}{\partial y_i} = \delta_{ij}$ для
+    $i, j = 1, \dots, n-1$ и $\frac{\partial x_n}{\partial y_i} = 0$.
+    Дифференцируя по параметру $s$, из характеристической системы имеем
+    $\frac{\partial x_j}{\partial s} = F_{p_j}(p^0, z^0, x^0)$.
+    Тогда определитель матрицы Якоби равен:
+    \begin{equation}
+        \det D_{y, s} x(y, 0) = F_{p_n}(p^0, z^0, x^0).
+    \end{equation}
+    
+    В силу условия нехарактеристичности $F_{p_n} \neq 0$, определитель отличен от нуля.
+    По теореме о локальной обратимости, отображение $x = x(y, s)$
+    обратимо в некоторой окрестности точки $x^0$, то есть существуют гладкие функции $y = y(x)$ и $s = s(x)$.
+    
+    Построим функцию-кандидата на решение:
+    \begin{equation}
+        u(x) = z(y(x), s(x)).
+    \end{equation}
+    
+    Остается показать, что построенная функция удовлетворяет уравнению
+    $F(Du, u, x) = 0$. Введем вспомогательную функцию вдоль характеристик:
+    \begin{equation}
+        f(y, s) = F(p(y, s), z(y, s), x(y, s)).
+    \end{equation}
+    При $s = 0$ по построению вектора $p^0(y)$ имеем $f(y, 0) = 0$.
+    Дифференцируя $f(y, s)$ по параметру $s$ и используя характеристическую систему, получаем:
+    \begin{equation}
+        \frac{\partial f(y, s)}{\partial s} = \sum_{j=1}^n \frac{\partial F}{\partial p_j} \dot{p}_j + \frac{\partial F}{\partial z} \dot{z} + \sum_{j=1}^n \frac{\partial F}{\partial x_j} \dot{x}_j.
+    \end{equation}
+    Подставляя производные из системы характеристик, это выражение тождественно 
+    обращается в нуль. Таким образом, $f(y, s) \equiv 0$, что означает выполнение 
+    уравнения $F(p, z, x) = 0$ вдоль характеристик. Учитывая соотношение 
+    $p_j(y, s) = \frac{\partial u(x(y,s))}{\partial x_j}$, заключаем, что функция $u(x)$ является искомым решением.
+\end{proof}
