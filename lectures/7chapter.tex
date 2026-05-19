@@ -1,0 +1,279 @@
+\section{Сильный экстремум. Канонические переменные, условие Вейрштрасса-Эрдмана. Гамильтонов формализм и уравнения Гамильтона. Лемма о спрямлении углов. Необходимое условие Вейерштрасса.}
+
+\subsection{Канонические переменные, Гамильтонов формализм и уравнения Гамильтона}
+\textbf{Постановка задачи}
+Рассматривается классическая задача вариационного исчисления с закрепленными концами. Требуется найти минимум функционала:
+\begin{equation}
+    J(x) = \int_{t_0}^{t_1} L(t, x(t), \dot{x}(t)) dt \rightarrow \min,
+\end{equation}
+где $x(t) \in C^1([t_0, t_1], \mathbb{R}^n)$.
+На концах отрезка заданы фиксированные граничные условия: 
+\begin{equation}
+    x(t_0) = \alpha, \quad x(t_1) = \beta.
+\end{equation}
+Предполагается, что подынтегральная функция (лагранжиан) обладает достаточной гладкостью: $L(t, x, y) \in C^2([t_0, t_1] \times \mathbb{R}^n \times \mathbb{R}^n)$.
+
+
+Для подынтегральной лагранжианa $L(t, x, \dot{x})$) вводятся канонические переменные, или импульсы:
+$$ p_k = \frac{\partial L(t, x, \dot{x})}{\partial \dot{x}_k} $$
+
+Функция Гамильтона (гамильтониан) $H(t, x, p)$ определяется через преобразование Лежандра:
+$$ H(t, x, p) = \sup_{\dot{x}} [p\dot{x} - L(t, x, \dot{x})] $$
+Часто эта связь записывается в виде тождества $H \equiv p\dot{x} - L$.
+Чтобы это преобразование было невырожденным, должно выполняться условие Гильберта:
+$$ \det\left(\frac{\partial^2 L}{\partial \dot{x}_i \partial \dot{x}_j}\right) \neq 0 $$ 
+
+\begin{proposition}[О связи с уравнениями Гамильтона]
+Если выполнены условия:
+1) $\det(L_{\dot{x}\dot{x}}) > 0$;
+2) $H(t, x, p) = p\dot{x} - L(t, x, \dot{x})$;
+3) $p = L_{\dot{x}}$,
+то функции $x(t)$ и $p(t)$ удовлетворяют системе дифференциальных уравнений Гамильтона:
+\begin{equation}
+\begin{cases}
+\dot{x}(t) = H_p(t, x, p) \\
+\dot{p}(t) = -H_x(t, x, p)
+\end{cases}
+\end{equation} 
+\end{proposition}
+\begin{proof}
+Дифференцируя тождество Гамильтона, получаем $H_x = -L_x$.
+Из уравнения Эйлера-Лагранжа $\frac{d}{dt} L_{\dot{x}} - L_x = 0$ и определения импульса $\frac{\partial p}{\partial t} = L_x$.
+Следовательно, $\dot{p} = -H_x$, а также $\dot{x} = H_p$, что и требовалось доказать.
+\end{proof}
+
+\begin{proposition}[Об эквивалентности уравнениям Эйлера-Лагранжа]
+Пусть $x(t)$ и $p(t)$ удовлетворяют уравнениям Гамильтона. Тогда $x(t)$ удовлетворяет уравнению Эйлера-Лагранжа.
+\end{proposition}
+\begin{proof}
+Запишем лагранжиан в виде $L(t, x, \dot{x}) = p\dot{x} - H(t, x, p)$.
+Вычислим производную по пространственной переменной: $L_x = -H_x$.
+Так как по уравнениям Гамильтона $-H_x = \dot{p}$, получаем $L_x = \dot{p}$.
+Поскольку $p = L_{\dot{x}}$, подставляя это в предыдущее выражение, приходим к уравнению Эйлера-Лагранжа: $\frac{d}{dt} L_{\dot{x}} - L_x = 0$.
+\end{proof}
+
+\subsection{Сильный экстремум}
+
+Рассмотрим задачу вариационного исчисления, в которой требуется найти минимум функционала:
+\begin{equation}
+J(x) = \int_{t_0}^{t_1} f(t, x(t), \dot{x}(t)) dt \to \min 
+\end{equation}
+Поиск решения ведется в классе $PC^1([t_0, t_1])$ --- множестве кусочно-непрерывно дифференцируемых функций.
+
+\begin{definition}
+Функция $\hat{x}(t)$ доставляет сильный минимум в задаче, если для любой функции $x(t) \in PC^1([t_0, t_1])$, 
+удовлетворяющей условию $\|x(t) - \hat{x}(t)\|_{C[t_0, t_1]} < \varepsilon$, выполняется неравенство $J(x(t)) \ge J(\hat{x}(t))$.
+\end{definition}
+
+\subsection{Условие Вейерштрасса-Эрдмана}
+Условие Вейерштрасса-Эрдмана определяет поведение решения в точках, где производная $\dot{x}$ терпит разрыв.
+
+\begin{theorem}
+Канонические переменные $p$ и функция Гамильтона $H$ в угловых точках (точках разрыва производной) должны быть непрерывны.
+\end{theorem}
+\begin{proof}
+Пусть $\tau$ --- точка разрыва производной $\dot{x}(t)$ экстремали $\hat{x}(t)$.
+Проведем через эту точку прямую по направлению $(\delta t, \delta x)$.
+Построим гладкое однопараметрическое семейство функций $x(t, \alpha)$, такое что 
+  $$x(t, 0) = \hat{x}(t), \quad x(t_0, \alpha) = \hat{x}(t_0), \quad x(t_1, \alpha) = \hat{x}(t_1)$$
+Разобьем интеграл функционала на две части до и после точки излома:
+$$ J(\alpha) = \int_{t_0}^{\tau(\alpha)} f(t, x(t), \dot{x}(t)) dt + \int_{\tau(\alpha)}^{t_1} f(t, x(t), \dot{x}(t)) dt $$ 
+Так как $\hat{x}(t)$ доставляет минимум, производная функционала по параметру $\alpha$ в точке $\alpha = 0$
+должна равняться нулю. Вычисляя эту производную по формуле первой вариации с подвижными концами, получаем:
+\begin{equation}
+\frac{d J(\alpha)}{d\alpha}\bigg|_{\alpha=0} = [p(\tau-0)\delta x - H(\tau-0)\delta t] - [p(\tau+0)\delta x - H(\tau+0)\delta t] = 0 
+\end{equation} 
+В силу произвольности выбора вариаций $\delta x$ и $\delta t$, коэффициенты при них должны совпадать с обеих сторон. 
+Это означает, что $p(\tau-0) = p(\tau+0)$ (импульс непрерывен) и $H(\tau-0) = H(\tau+0)$ (гамильтониан непрерывен).
+\end{proof}
+
+\subsection{Лемма о спрямлении углов}
+
+\begin{lemma}[О спрямлении углов]
+Пусть подынтегральная функция $f(t, x, \dot{x})$ непрерывна по совокупности переменных. 
+Тогда точная нижняя грань функционала на классе кусочно-гладких функций совпадает с точной нижней гранью на классе гладких функций:
+$$ \inf \{ J(x) \mid x \in PC^1([t_0, t_1]) \} = \inf \{ J(x) \mid x \in C^1([t_0, t_1]) \} $$
+  при условии : 
+  $$x(t) \in PC^1([t_0, t_1]), \quad \|x(t) - \hat{x}(t)\|_{C[t_0, t_1]} < \varepsilon$$
+\end{lemma}
+
+\begin{proof}
+Поскольку любой элемент класса гладких функций тривиально является кусочно-гладким, то справедливо включение $C^1([t_0, t_1], \mathbb{R}^n) \subset PC^1([t_0, t_1], \mathbb{R}^n)$. Из этого включения автоматически следует неравенство для точных нижних граней:
+\begin{equation}\label{eq::inf_trivial}
+    \inf_{x(\cdot) \in PC^1([t_0, t_1])} \{ J(x(\cdot)) \} \le \inf_{x(\cdot) \in C^1([t_0, t_1])} \{ J(x(\cdot)) \}.
+\end{equation}
+
+Докажем обратное неравенство методом от противного. Предположим, что инфимум на классе кусочно-гладких функций строго меньше, чем на классе непрерывно дифференцируемых функций.
+Это означает, что существует некоторая оптимальная кусочно-гладкая траектория $\hat{x}(t) \in PC^1([t_0, t_1], \mathbb{R}^n)$ и некоторое фиксированное число $\eta > 0$ такие, 
+что выполняется строгое неравенство:
+\begin{equation}\label{eq::contr_hyp}
+    J(\hat{x}(\cdot)) < \inf_{x(\cdot) \in C^1([t_0, t_1])} \{ J(x(\cdot)) \} - \eta.
+\end{equation}
+
+Пусть $\tau_1, \tau_2, \dots, \tau_m \in (t_0, t_1)$ --- конечное множество внутренних точек излома (угловых точек), 
+в которых производная траектории $\dot{\hat{x}}(t)$ имеет устранимые разрывы или разрывы. Обозначим величину скачка вектора производной в каждой такой точке $\tau_i$ как:
+\begin{equation}
+    \Delta_i = \dot{\hat{x}}(\tau_i + 0) - \dot{\hat{x}}(\tau_i - 0), \quad i = 1, \dots, m.
+\end{equation}
+
+Для проведения строгой оценки разности интегралов введем замкнутое компактное множество $K$:
+\begin{equation}
+  K = \left\{ (t, x, v) \in [t_0, t_1] \times \mathbb{R}^n \times \mathbb{R}^n \;\middle|\; \|x - \hat{x}(t)\| \le \max_i{\Delta_i \frac{\delta_0}{4}}, \, \|\dot{x} - \dot{\hat{x}}(t)\| \le \frac{\max_i{\Delta_i}}{2} \right\}.
+\end{equation}
+Поскольку функция $f(t, x, \dot{x})$ непрерывна на компактном множестве $K$, по теореме Вейерштрасса она ограничена на нём некоторой константой $M > 0$:
+\begin{equation}
+    \max_{(t, x, v) \in K} |f(t, x, v)| \le M.
+\end{equation}
+
+Введем вспомогательную "сглаживающую" функцию $a(t)$:
+\begin{equation}
+    a(t) = 
+    \begin{cases} 
+    \frac{(1 - |t|)^2}{4}, & |t| \le 1, \\ 
+    0, & |t| > 1. 
+    \end{cases}
+\end{equation}
+Легко проверить, что её производная $\dot{a}(t)$ имеет скачок в нуле: $\dot{a}(+0) - \dot{a}(-0) = -1/2 - 1/2 = -1$. 
+Поэтому масштабированная функция $\delta a\left(\frac{t - \tau_i}{\delta}\right)$ непрерывна, а её производная имеет скачок ровно $-1$ в точке $t = \tau_i$.
+
+Построим сглаженную функцию $x_\delta(t)$, добавляя к исходной траектории компенсирующие слагаемые в окрестности каждой точки излома:
+\begin{equation}
+    x_\delta(t) = \hat{x}(t) + \sum_{i=1}^m \Delta_i \delta a\left(\frac{t - \tau_i}{\delta}\right).
+\end{equation}
+% *(Примечание: здесь используется знак плюс, так как скачок производной сглаживающего члена равен $-\Delta_i$, что в сумме со скачком $\Delta_i$ 
+%   исходной функции $\hat{x}$ дает нулевой скачок, обеспечивая непрерывность производной $x_\delta(t)$).* 
+Таким образом, функция $x_\delta(t)$ принадлежит классу непрерывно дифференцируемых функций $C^1([t_0, t_1], \mathbb{R}^n)$.
+
+Оценим норму отклонения $x_\delta(t)$ от исходной траектории $\hat{x}(t)$:
+\begin{equation}
+    |x_\delta(t) - \hat{x}(t)| \le \delta \max_i |\Delta_i| \max_t |a(t)| = \delta \frac{\max_i |\Delta_i|}{4}.
+\end{equation}
+Аналогично оценим отклонение производных:
+\begin{equation}
+    |\dot{x}_\delta(t) - \dot{\hat{x}}(t)| \le \max_i |\Delta_i| \max_t |\dot{a}(t)| \le \frac{\max_i |\Delta_i|}{2}.
+\end{equation}
+Видно, что при $\delta \le \delta_0$ график функции $x_\delta(t)$ и её производной целиком лежит внутри компакта $K$.
+
+Рассчитаем разность значений функционала на $x_\delta(t)$ и $\hat{x}(t)$. Поскольку функции тождественно совпадают вне 
+$\delta$-окрестностей точек излома, интеграл от разности не равен нулю только на объединении интервалов $(\tau_i - \delta, \tau_i + \delta)$:
+\begin{equation}
+    J(x_\delta) - J(\hat{x}) = \sum_{i=1}^m \int_{\tau_i - \delta}^{\tau_i + \delta} \left[ f(t, x_\delta(t), \dot{x}_\delta(t)) - f(t, \hat{x}(t), \dot{\hat{x}}(t)) \right] dt.
+\end{equation}
+
+Используя ограниченность функции $f$ константой $M$ на компакте $K$, оценим разность:
+\begin{equation}
+    J(x_\delta) - J(\hat{x}) \le \sum_{i=1}^m \int_{\tau_i - \delta}^{\tau_i + \delta} 2M \, dt = m \cdot 2M \cdot 2\delta = 4mM\delta.
+\end{equation}
+
+Выберем значение параметра $\delta$ настолько малым, чтобы выполнялось условие $0 < \delta < max(\delta_0, \frac{\eta}{8mM})$. Тогда для значений функционала будет справедливо:
+\begin{equation}
+  J(x_\delta) \le J(\hat{x}) - \frac{\eta}{2}.
+\end{equation}
+
+Подставляя это в наше исходное предположение \eqref{eq::contr_hyp}, получаем:
+\begin{equation}
+    J(x_\delta) < \inf_{x(\cdot) \in C^1([t_0, t_1])} \{ J(x(\cdot)) \} - \eta + \eta = \inf_{x(\cdot) \in C^1([t_0, t_1])} \{ J(x(\cdot)) \}.
+\end{equation}
+\end{proof}
+
+\begin{corollary}[О сильном экстремуме в классах гладких и кусочно-гладких функций]
+Если непрерывно дифференцируемая траектория $\hat{x}(t) \in C^1([t_0, t_1], \mathbb{R}^n)$ является точкой сильного локального минимума функционала
+$J(x(\cdot))$ в классе гладких функций $C^1([t_0, t_1], \mathbb{R}^n)$, то она также является сильным локальным минимумом этого функционала
+и в более широком классе кусочно-гладких функций $PC^1([t_0, t_1], \mathbb{R}^n)$.
+\end{corollary}
+
+\subsection{Необходимое условие Вейерштрасса}
+
+Введем функцию Вейерштрасса:
+\begin{equation}
+  E(\tau, x, \dot{x}, \xi) = f(\tau, x, \xi) - f(\tau, x, \dot{x}) - \langle f_{\dot{x}}(\tau, x, \dot{x}), \xi - \dot{x}(tau) \rangle
+\end{equation} 
+
+\begin{theorem}
+Для того чтобы кривая $\hat{x}(t)$ доставляла сильный минимум функционалу $J[x(\cdot)]$, необходимо,
+чтобы $\forall \xi \in \mathbb{R}^n$ и $\forall \tau \in [t_0, t_1]$ выполнялось неравенство:
+$$ E(\tau, \hat{x}(\tau), \dot{\hat{x}}(\tau), \xi) \ge 0 $$ 
+\end{theorem}
+
+\begin{proof}
+Зафиксируем произвольную внутреннюю точку промежутка $\tau \in (t_0, t_1)$, произвольный вектор скорости
+$\xi \in \mathbb{R}^n$ и достаточно малое число $\sigma_0 > 0$ такое, что $[\tau, \tau + \sigma_0] \subset [t_0, t_1]$. 
+
+Для малого параметра вариации $\alpha \in (0, \sigma_0)$ построим семейство 
+$x(t, \alpha)$:
+\begin{equation}
+x(t, \alpha) = 
+\begin{cases}
+    \hat{x}(t), & t \in [\tau, \tau + \sigma_0], \\
+    \hat{x}(\tau) + \xi(t - \tau), & t \in [\tau, \tau + \alpha], \\
+    \hat{x}(t) + \frac{\tau + \sigma_0 - t}{\sigma_0 - \alpha} \left( \hat{x}(\tau) + \xi \alpha - \hat{x}(\tau + \alpha) \right), & t \in [\tau + \alpha, \tau + \sigma_0].
+\end{cases}
+\end{equation}
+
+Построенная траектория непрерывна на всем промежутке $[t_0, t_1]$, совпадает с оптимальной кривой вне малого промежутка и
+при $\alpha \to 0^+$ равномерно стремится к ней по координатам.
+
+Вычислим приращение функционала $\Delta J = J(x(\cdot, \alpha)) - J(\hat{x}(\cdot))$.
+Поскольку вне промежутка $[\tau, \tau + \sigma_0]$ траектории полностью совпадают, то интеграл разности:
+\begin{equation}
+    J(\alpha) - J(0) = \int_{\tau}^{\tau+\alpha} \left[ f(t, x, \dot{x}) - f(t, \hat{x}, \dot{\hat{x}}) \right] dt + \int_{\tau+\alpha}^{\tau+\sigma_0} \left[ f(t, x, \dot{x}) - f(t, \hat{x}, \dot{\hat{x}}) \right] dt
+\end{equation}
+
+Рассмотрим отдельно каждый из двух интегралов при $\alpha \to 0^+$:
+
+1) На первом промежутке $t \in [\tau, \tau + \alpha]$ производная вариации постоянна и равна $\dot{x}(t, \alpha) = \xi$.
+Применяя теорему о среднем значении для непрерывных функций, получаем главный линейный член по $\alpha$:
+\begin{equation}
+    \int_{\tau}^{\tau+\alpha} \left[ f(t, \hat{x}(\tau) + \xi(t - \tau), \xi) - f(t, \hat{x}(t), \dot{\hat{x}}(t)) \right] dt = \alpha \left[ f(\tau, \hat{x}(\tau), \xi) - f(\tau, \hat{x}(\tau), \dot{\hat{x}}(\tau)) \right] + o(\alpha)
+\end{equation}
+
+2) На втором промежутке $t \in [\tau + \alpha, \tau + \sigma_0]$ разложим числитель добавки по формуле Тейлора:
+$$ \hat{x}(\tau) + \xi \alpha - \hat{x}(\tau + \alpha) = \hat{x}(\tau) + \xi \alpha - \left( \hat{x}(\tau) + \dot{\hat{x}}(\tau)\alpha + o(\alpha) \right) = \alpha (\xi - \dot{\hat{x}}(\tau)) + o(\alpha) $$
+Тогда выражение для траектории и её производной на втором участке упрощается до:
+$$ x(t, \alpha) = \hat{x}(t) + \alpha \frac{\tau + \sigma_0 - t}{\sigma_0} (\xi - \dot{\hat{x}}(\tau)) + o(\alpha) $$
+$$ \dot{x}(t, \alpha) = \dot{\hat{x}}(t) - \frac{\alpha}{\sigma_0} (\xi - \dot{\hat{x}}(\tau)) + o(\alpha) $$
+
+Разложим подынтегральную функцию $f(t, x, \dot{x})$ в ряд Тейлора в окрестности оптимальной траектории $(\hat{x}, \dot{\hat{x}})$:
+$$ f(t, x, \dot{x}) - f(t, \hat{x}, \dot{\hat{x}}) = \alpha \frac{\tau + \sigma_0 - t}{\sigma_0} \langle f_x(t), \xi - \dot{\hat{x}}(\tau) \rangle - \frac{\alpha}{\sigma_0} \langle f_{\dot{x}}(t), \xi - \dot{\hat{x}}(\tau) \rangle + o(\alpha) $$
+
+Интегрируя полученное выражение по промежутку (изменение нижнего предела интегрирования с $\tau+\alpha$ на $\tau$ дает погрешность порядка $o(\alpha)$), находим:
+\begin{equation}
+    \int_{\tau+\alpha}^{\tau+\sigma_0} \left[ f(t, x, \dot{x}) - f(t, \hat{x}, \dot{\hat{x}}) \right] dt = \alpha \int_{\tau}^{\tau+\sigma_0} \left[ \frac{\tau + \sigma_0 - t}{\sigma_0} \langle f_x(t), \xi - \dot{\hat{x}}(\tau) \rangle - \frac{1}{\sigma_0} \langle f_{\dot{x}}(t), \xi - \dot{\hat{x}}(\tau) \rangle \right] dt + o(\alpha)
+\end{equation}
+
+Поскольку кривая $\hat{x}(t)$ является решением исходной вариационной задачи, она удовлетворяет уравнениям Эйлера-Лагранжа: $f_x(t) = \frac{d}{dt} f_{\dot{x}}(t)$.
+  Подставим это соотношение и проинтегрируем первый член под интегралом по частям:
+$$ \int_{\tau}^{\tau+\sigma_0} \frac{\tau + \sigma_0 - t}{\sigma_0} \left\langle \frac{d}{dt} f_{\dot{x}}(t), \xi - \dot{\hat{x}}(\tau) \right\rangle dt = $$
+$$ = \left. \frac{\tau + \sigma_0 - t}{\sigma_0} \langle f_{\dot{x}}(t), \xi - \dot{\hat{x}}(\tau) \rangle \right|_{\tau}^{\tau+\sigma_0} - \int_{\tau}^{\tau+\sigma_0} \left( -\frac{1}{\sigma_0} \right) \langle f_{\dot{x}}(t), \xi - \dot{\hat{x}}(\tau) \rangle dt = $$
+$$ = -\langle f_{\dot{x}}(\tau), \xi - \dot{\hat{x}}(\tau) \rangle + \frac{1}{\sigma_0} \int_{\tau}^{\tau+\sigma_0} \langle f_{\dot{x}}(t), \xi - \dot{\hat{x}}(\tau) \rangle dt $$
+
+При подстановке этого результата обратно в интеграл второго промежутка, интегральные члены полностью взаимно уничтожаются, оставляя лишь внеинтегральное выражение:
+\begin{equation}
+    \int_{\tau+\alpha}^{\tau+\sigma_0} \left[ f(t, x, \dot{x}) - f(t, \hat{x}, \dot{\hat{x}}) \right] dt = -\alpha \langle f_{\dot{x}}(\tau, \hat{x}(\tau), \dot{\hat{x}}(\tau)), \xi - \dot{\hat{x}}(\tau) \rangle + o(\alpha)
+\end{equation}
+
+Объединяя теперь приращения с обоих участков, получаем итоговую формулу для первой вариации функционала при малых $\alpha > 0$:
+\begin{equation}
+    J(\alpha) - J(0) = \alpha \left[ f(\tau, \hat{x}(\tau), \xi) - f(\tau, \hat{x}(\tau), \dot{\hat{x}}(\tau)) - \langle f_{\dot{x}}(\tau, \hat{x}(\tau), \dot{\hat{x}}(\tau)), \xi - \dot{\hat{x}}(\tau) \rangle \right] + o(\alpha)
+\end{equation}
+$$ J(\alpha) - J(0) = \alpha E(\tau, \hat{x}(\tau), \dot{\hat{x}}(\tau), \xi) + o(\alpha) $$
+
+В силу того, что кривая $\hat{x}(t)$ по условию теоремы доставляет сильный локальный минимум, при всех достаточно малых значениях $\alpha > 0$
+приращение функционала должно быть строго неотрицательным: $J(\alpha) - J(0) \ge 0$. 
+
+Разделив обе части неравенства на параметр $\alpha > 0$ и перейдя к пределу при $\alpha \to 0^+$, окончательно получаем:
+\begin{equation}
+    E(\tau, \hat{x}(\tau), \dot{\hat{x}}(\tau), \xi) \ge 0.
+\end{equation}
+Теорема доказана.
+\end{proof}
+
+\begin{corollary}[Необходимое условие Лежандра]
+Из условия Вейерштрасса напрямую вытекает классическое условие Лежандра. 
+Если кривая $\hat{x}(t)$ является сильным минимумом функционала $J[x(\cdot)]$, а лагранжиан $f(t, x, \dot{x}) \in C^2$,
+то в любой точке траектории матрица вторых частных производных по скоростям (матрица Гессе) является неотрицательно определенной:
+\begin{equation}
+    \left( \frac{\partial^2 f(t, \hat{x}(t), \dot{\hat{x}}(t))}{\partial \dot{x}_i \partial \dot{x}_j} \right) \ge 0.
+\end{equation}
+\end{corollary}
+
