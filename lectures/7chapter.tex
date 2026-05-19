@@ -6,50 +6,76 @@
 \begin{equation}
     J(x) = \int_{t_0}^{t_1} L(t, x(t), \dot{x}(t)) dt \rightarrow \min,
 \end{equation}
-где $x(t) \in C^1([t_0, t_1], \mathbb{R}^n)$.
+где решение ищется в классе функций $x(t) \in C^1([t_0, t_1], \mathbb{R}^n)$.
 На концах отрезка заданы фиксированные граничные условия: 
 \begin{equation}
-    x(t_0) = \alpha, \quad x(t_1) = \beta.
+    x(t_0) = a, \quad x(t_1) = b
 \end{equation}
-Предполагается, что подынтегральная функция (лагранжиан) обладает достаточной гладкостью: $L(t, x, y) \in C^2([t_0, t_1] \times \mathbb{R}^n \times \mathbb{R}^n)$.
+Предполагается, что подынтегральная функция (лагранжиан) обладает достаточной гладкостью:
+$L(t, x, y) \in C^2([t_0, t_1] \times \mathbb{R}^n \times \mathbb{R}^n)$. 
 
+Для лагранжиана $L(t, x, y)$, где $y = \dot{x}$ вводятся канонические переменные:
+$$ p_k = \frac{\partial L(t, x, y)}{\partial y_k}, \quad k = \overline{1, n} $$
 
-Для подынтегральной лагранжианa $L(t, x, \dot{x})$) вводятся канонические переменные, или импульсы:
-$$ p_k = \frac{\partial L(t, x, \dot{x})}{\partial \dot{x}_k} $$
+Для того чтобы из этой системы уравнений можно было однозначно выразить $y$ через $(t, x, p)$, накладывается условие Гильберта:
+$$ \det\left(\frac{\partial^2 L}{\partial y_i \partial y_j}\right) \neq 0 $$
+При выполнении этого условия мы можем разрешить уравнение относительно $y$ и получить функцию $y = \xi(t, x, p)$.
 
-Функция Гамильтона (гамильтониан) $H(t, x, p)$ определяется через преобразование Лежандра:
-$$ H(t, x, p) = \sup_{\dot{x}} [p\dot{x} - L(t, x, \dot{x})] $$
-Часто эта связь записывается в виде тождества $H \equiv p\dot{x} - L$.
-Чтобы это преобразование было невырожденным, должно выполняться условие Гильберта:
-$$ \det\left(\frac{\partial^2 L}{\partial \dot{x}_i \partial \dot{x}_j}\right) \neq 0 $$ 
+Функция Гамильтона (гамильтониан) $H(t, x, p)$ определяется через преобразование Лежандра следующим образом:
+$$ H(t, x, p) = \sup_{y} [py - L(t, x, y)] $$
+С учетом найденной функции $\xi$, гамильтониан записывается в виде:
+$$ H(t, x, p) = p\xi(t, x, p) - L(t, x, \xi(t, x, p)) $$ 
 
-\begin{proposition}[О связи с уравнениями Гамильтона]
-Если выполнены условия:
-1) $\det(L_{\dot{x}\dot{x}}) > 0$;
+\begin{proposition}[Предложение 1. О связи с уравнениями Гамильтона]
+Пусть $x$ — решение уравнений Эйлера-Лагранжа. Если выполнены условия:
+1) условие выпуклости $\det\left(\frac{\partial^2 L}{\partial y_i \partial y_j}\right) > 0$;
 2) $H(t, x, p) = p\dot{x} - L(t, x, \dot{x})$;
-3) $p = L_{\dot{x}}$,
+3) $p(t) = \frac{\partial L}{\partial \dot{x}}$,
 то функции $x(t)$ и $p(t)$ удовлетворяют системе дифференциальных уравнений Гамильтона:
 \begin{equation}
 \begin{cases}
 \dot{x}(t) = H_p(t, x, p) \\
 \dot{p}(t) = -H_x(t, x, p)
 \end{cases}
-\end{equation} 
+\end{equation}
 \end{proposition}
 \begin{proof}
-Дифференцируя тождество Гамильтона, получаем $H_x = -L_x$.
-Из уравнения Эйлера-Лагранжа $\frac{d}{dt} L_{\dot{x}} - L_x = 0$ и определения импульса $\frac{\partial p}{\partial t} = L_x$.
-Следовательно, $\dot{p} = -H_x$, а также $\dot{x} = H_p$, что и требовалось доказать.
+% В силу свойств преобразования Лежандра и определения канонической переменной $p = \frac{\partial L}{\partial y}$, справедливо равенство $\dot{x} = H_p$.
+Дифференцируя тождество 2) по пространственной переменной $x$, получаем $H_x = -L_x$.
+Так как функция $x$ является решением уравнений Эйлера-Лагранжа, для нее выполняется соотношение
+$\frac{d}{dt}\left(\frac{\partial L}{\partial \dot{x}}\right) = L_x$.
+Поскольку $p = \frac{\partial L}{\partial \dot{x}}$, подставляя это в предыдущее уравнение, имеем $\frac{dp}{dt} = L_x$. 
+Используя ранее полученное тождество $H_x = -L_x$, окончательно приходим к $\dot{p} = -H_x$. 
+
+Дифференцируя тождество 2) по канонической переменной $p$, получаем:
+\begin{align*}
+\frac{\partial H}{\partial p_i} &= \frac{\partial}{\partial p_i} \left( \sum_{j=1}^n p_j y_j(t, x, p) - L(t, x, y(t, x, p)) \right) \\
+&= \sum_{j=1}^n \frac{\partial}{\partial p_i} \left( p_j y_j(t, x, p) \right) - \frac{\partial}{\partial p_i} L(t, x, y(t, x, p)) \\
+&= \sum_{j=1}^n \left( \frac{\partial p_j}{\partial p_i} y_j(t, x, p) + p_j \frac{\partial y_j(t, x, p)}{\partial p_i} \right) - \sum_{j=1}^n \frac{\partial L(t, x, y)}{\partial y_j} \frac{\partial y_j(t, x, p)}{\partial p_i} \\
+&= \sum_{j=1}^n \delta_{ij} y_j(t, x, p) + \sum_{j=1}^n p_j \frac{\partial y_j(t, x, p)}{\partial p_i} - \sum_{j=1}^n \frac{\partial L(t, x, y)}{\partial y_j} \frac{\partial y_j(t, x, p)}{\partial p_i} \\
+&= y_i(t, x, p) + \sum_{j=1}^n \left( p_j - \frac{\partial L(t, x, y)}{\partial y_j} \right) \frac{\partial y_j(t, x, p)}{\partial p_i} \\
+&= y_i(t, x, p) + \sum_{j=1}^n (0) \cdot \frac{\partial y_j(t, x, p)}{\partial p_i} \\
+&= y_i(t, x, p) = \dot{x}_i
+\end{align*}
+Утверждение доказано.
 \end{proof}
 
-\begin{proposition}[Об эквивалентности уравнениям Эйлера-Лагранжа]
-Пусть $x(t)$ и $p(t)$ удовлетворяют уравнениям Гамильтона. Тогда $x(t)$ удовлетворяет уравнению Эйлера-Лагранжа.
+\begin{proposition}[Предложение 2. Об эквивалентности уравнениям Эйлера-Лагранжа]
+Предположим, что функции $x(t)$ и $p(t)$ удовлетворяют уравнениям Гамильтона. И
+$$p = \frac{\partial L(t,x,\dot{x})}{\partial y}, \quad L(t, x, \dot{x}) = p\dot{x} - H(t, x, p)$$
+Тогда $x(t)$ удовлетворяет уравнению Эйлера-Лагранжа.
 \end{proposition}
 \begin{proof}
-Запишем лагранжиан в виде $L(t, x, \dot{x}) = p\dot{x} - H(t, x, p)$.
-Вычислим производную по пространственной переменной: $L_x = -H_x$.
-Так как по уравнениям Гамильтона $-H_x = \dot{p}$, получаем $L_x = \dot{p}$.
-Поскольку $p = L_{\dot{x}}$, подставляя это в предыдущее выражение, приходим к уравнению Эйлера-Лагранжа: $\frac{d}{dt} L_{\dot{x}} - L_x = 0$.
+Вычислим частную производную лагранжиана по пространственной переменной $x$, она равна $L_x = -H_x$.
+Вычислим первый член в уравнении Эйлера-Лагранжа:
+  $$\frac{d}{dt} L_{\dot{x}_k} = \frac{d}{dt} \left(p_k + \sum_{i=1}^n (\frac{\partial p_i}{\partial \dot{x}_k}\dot{x}_i - H_{p_i}(t, x, p)\frac{\partial p_i}{\partial \dot{x}_k}) \right) 
+  = \frac{d}{dt} p_k
+  % = -\frac{\partial H}{\partial x_k} = \frac{\partial L}{\partial x_k}
+  $$
+Так как по условию функции удовлетворяют уравнениям Гамильтона, то $\dot{p}_k = -\frac{\partial H}{\partial x_k}$.
+Подставляя это в выражение для производной импульса и учитывая, что $-\frac{\partial H}{\partial x_k} = \frac{\partial L}{\partial x_k}$, получаем:
+$$ \frac{d}{dt} p_k = -\frac{\partial H}{\partial x_k} = \frac{\partial L}{\partial x_k} $$
+Это в точности совпадает с системой уравнений Эйлера-Лагранжа $\frac{d}{dt} L_{\dot{x}_k} - L_{x_k} = 0$. Утверждение доказано.
 \end{proof}
 
 \subsection{Сильный экстремум}
