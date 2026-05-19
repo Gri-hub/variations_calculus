@@ -1,69 +1,53 @@
 \section{Формула вариации функционала для задачи с подвижными концами. Условия трансверсальности в простейшей вариационной задаче с подвижными концами.}
 
-Рассмотрим задачу нахождения экстремума функционала с подвижными концами в пространстве $\mathbb{R}^n$:
+\subsection{Формула вариации функционала для задачи с подвижными концами}
 
+Рассмотрим задачу нахождения экстремума функционала с подвижными концами:
 
 $$J[x(\cdot)] = \int_{t_0}^{t_1} f\left(t, x_1(t), \dots, x_n(t), \dot{x}_1(t), \dots, \dot{x}_n(t)\right) dt$$
 
-Введем в рассмотрение гладкое однопараметрическое семейство кривых $x(t, \alpha) = \big(x_1(t, \alpha), \dots, x_n(t, \alpha)\big) \in C^2(\mathbb{R} \times \mathbb{R}^n)$, где $\alpha$ — параметр вариации. Пусть границы интегрирования также зависят от этого параметра, то есть заданы непрерывно дифференцируемые функции времени $t_0(\alpha) \in C^1(\mathbb{R})$ и $t_1(\alpha) \in C^1(\mathbb{R})$.
+Введем однопараметрическое семейство кривых 
+$x(t, \alpha) \in C^2(\mathbb{R} \times \mathbb{R}^n)$,
+где $\alpha$ --- параметр. Пусть границы интегрирования также зависят
+от параметра, то есть функции $t_0(\alpha)$ и $t_1(\alpha)$ непрерывно 
+дифференцируемы: $t_0(\alpha) \in C^1(\mathbb{R})$ и $t_1(\alpha) \in C^1(\mathbb{R})$.\\
+При $\alpha = 0$ введем обозначения $x(t, 0) = \hat{x}(t)$ и
+$t_0(0) = \hat{t}_0$ и $t_1(0) = \hat{t}_1$.\\
+Также введем обозначение 
+$$h(t) = \frac{\partial x(t, \alpha)}{\partial \alpha}\big|_{\alpha=0},
+\quad \dot{h}(t) = \frac{\partial^2 x(t, \alpha)}{\partial t \partial \alpha}\big|_{\alpha=0}$$
+$$x_{1j}(\alpha) = x_j(t_1(\alpha), \alpha), \quad x_{0j}(\alpha) = x_j(t_0(\alpha), \alpha)$$
+$$\delta t_0 = \frac{d t_0(0)}{d\alpha}, \quad \delta t_1 = \frac{d t_1(0)}{d\alpha}$$
+$$\delta x_{0j} = \frac{d x_{0j}(0)}{d \alpha}, \quad  \delta x_{1j} = \frac{d x_{1j}(0)}{d \alpha}$$
 
-При значении параметра $\alpha = 0$ данное семейство переходит в базовую (опорную) траекторию $\hat{x}(t) = \big(\hat{x}_1(t), \dots, \hat{x}_n(t)\big)$ , а границы интегрирования принимают фиксированные значения $\hat{t}_0 = t_0(0)$ и $\hat{t}_1 = t_1(0)$. Таким образом:
-
-
+Таким образом:
 $$J(\alpha) = \int_{t_0(\alpha)}^{t_1(\alpha)} f\left(t, x_1(t, \alpha), \dots, x_n(t, \alpha), \frac{\partial x_1(t, \alpha)}{\partial t}, \dots, \frac{\partial x_n(t, \alpha)}{\partial t}\right) dt$$
-
-Найдем полную производную функционала по параметру $\alpha$ при $\alpha = 0$, используя правило Лейбница для дифференцирования интеграла с зависящими от параметра пределами:
-
-
+Найдем полную производную функционала по параметру $\alpha$ при $\alpha = 0$,
+используя правило Лейбница для дифференцирования интеграла с зависящими от параметра пределами:
 $$\frac{d J(0)}{d \alpha} = f\left(\hat{t}_1, \hat{x}_1(\hat{t}_1), \dots, \hat{x}_n(\hat{t}_1), \dot{\hat{x}}_1(\hat{t}_1), \dots, \dot{\hat{x}}_n(\hat{t}_1)\right) \frac{d t_1(\alpha)}{d \alpha}\bigg|_{\alpha=0} -$$
-
 $$- f\left(\hat{t}_0, \hat{x}_0(\hat{t}_0), \dots, \hat{x}_n(\hat{t}_0), \dot{\hat{x}}_1(\hat{t}_0), \dots, \dot{\hat{x}}_n(\hat{t}_0)\right) \frac{d t_0(\alpha)}{d \alpha}\bigg|_{\alpha=0} + \int_{\hat{t}_0}^{\hat{t}_1} \frac{\partial}{\partial \alpha} \left[ f\left(t, x(t, \alpha), \frac{\partial x(t, \alpha)}{\partial t}\right) \right]\bigg|_{\alpha=0} dt$$
-
-Применяя правило дифференцирования сложной функции для подынтегрального выражения, получаем сумму по всем координатным компонентам $j = 1, \dots, n$:
-
-
-$$\frac{\partial}{\partial \alpha} \left[ f\left(t, x(t, \alpha), \frac{\partial x(t, \alpha)}{\partial t}\right) \right] = \sum_{j=1}^n \frac{\partial f}{\partial x_j}\left(t, x(t, \alpha), \frac{\partial x(t, \alpha)}{\partial t}\right) \frac{\partial x_j(t, \alpha)}{\partial \alpha} + \sum_{j=1}^n \frac{\partial f}{\partial \dot{x}_j}\left(t, x(t, \alpha), \frac{\partial x(t, \alpha)}{\partial t}\right) \frac{\partial^2 x_j(t, \alpha)}{\partial t \partial \alpha}$$
-
-Введем обозначения для компонент отклонения (вариации) траектории $h_j(t)$ и их производных $\dot{h}_j(t)$ при $\alpha = 0$:
-
-
-$$h_j(t) = \frac{\partial x_j(t, \alpha)}{\partial \alpha}\bigg|_{\alpha=0}, \quad \dot{h}_j(t) = \frac{\partial^2 x_j(t, \alpha)}{\partial t \partial \alpha}\bigg|_{\alpha=0} \quad (j = 1, \dots, n)$$
-
-Тогда при $\alpha = 0$ подынтегральный член принимает вид:
-
-
-$$\sum_{j=1}^n \left[ \frac{\partial f}{\partial x_j}\left(t, \hat{x}(t), \dot{\hat{x}}(t)\right) h_j(t) + \frac{\partial f}{\partial \dot{x}_j}\left(t, \hat{x}(t), \dot{\hat{x}}(t)\right) \dot{h}_j(t) \right]$$
-
+Применяя правило дифференцирования сложной функции для подынтегрального выражения, получим:
+$$\frac{\partial}{\partial \alpha} \left[ f\left(t, x(t, \alpha), \frac{\partial x(t, \alpha)}{\partial t}\right) \right]
+= \sum_{j=1}^n \frac{\partial f}{\partial x_j}\left(t, x(t, \alpha), \frac{\partial x(t, \alpha)}{\partial t}\right) \frac{\partial x_j(t, \alpha)}{\partial \alpha}+$$
+$$+ \sum_{j=1}^n \frac{\partial f}{\partial \dot{x}_j}\left(t, x(t, \alpha), \frac{\partial x(t, \alpha)}{\partial t}\right) \frac{\partial^2 x_j(t, \alpha)}{\partial t \partial \alpha}=$$
+$$
+=\left\{ \text{При } \alpha = 0\right\} 
+=\sum_{j=1}^n \left[ \frac{\partial f}{\partial x_j}\left(t, \hat{x}(t), \dot{\hat{x}}(t)\right) h_j(t) 
++ \frac{\partial f}{\partial \dot{x}_j}\left(t, \hat{x}(t), \dot{\hat{x}}(t)\right) \dot{h}_j(t) \right]$$
 Применим формулу интегрирования по частям ко второму слагаемому под знаком суммы внутри интеграла:
-
-
-$$\int_{\hat{t}_0}^{\hat{t}_1} \sum_{j=1}^n \frac{\partial f}{\partial \dot{x}_j}\left(t, \hat{x}(t), \dot{\hat{x}}(t)\right) \dot{h}_j(t) \, dt = \sum_{j=1}^n \left[ \frac{\partial f}{\partial \dot{x}_j}\left(t, \hat{x}(t), \dot{\hat{x}}(t)\right) h_j(t) \right]\bigg|_{\hat{t}_0}^{\hat{t}_1} - \int_{\hat{t}_0}^{\hat{t}_1} \sum_{j=1}^n \frac{d}{dt}\left( \frac{\partial f}{\partial \dot{x}_j}\left(t, \hat{x}(t), \dot{\hat{x}}(t)\right) \right) h_j(t) \, dt$$
-
-Объединяя интегралы, получаем выражение для изменения подынтегральной части:
-
-
+$$\int_{\hat{t}_0}^{\hat{t}_1} \sum_{j=1}^n \frac{\partial f}{\partial \dot{x}_j}\left(t, \hat{x}(t), \dot{\hat{x}}(t)\right) \dot{h}_j(t) \, dt = \sum_{j=1}^n \left[ \frac{\partial f}{\partial \dot{x}_j}\left(t, \hat{x}(t), \dot{\hat{x}}(t)\right) h_j(t) \right]\bigg|_{\hat{t}_0}^{\hat{t}_1}-$$
+$$- \int_{\hat{t}_0}^{\hat{t}_1} \sum_{j=1}^n \frac{d}{dt}\left( \frac{\partial f}{\partial \dot{x}_j}\left(t, \hat{x}(t), \dot{\hat{x}}(t)\right) \right) h_j(t) \, dt$$
+Объединяя интегралы, получаем:
 $$\int_{\hat{t}_0}^{\hat{t}_1} \sum_{j=1}^n \left( \frac{\partial f}{\partial x_j}\left(t, \hat{x}(t), \dot{\hat{x}}(t)\right) - \frac{d}{dt}\left( \frac{\partial f}{\partial \dot{x}_j}\left(t, \hat{x}(t), \dot{\hat{x}}(t)\right) \right) \right) h_j(t) \, dt + \sum_{j=1}^n \left[ \frac{\partial f}{\partial \dot{x}_j}\left(t, \hat{x}(t), \dot{\hat{x}}(t)\right) h_j(t) \right]\bigg|_{\hat{t}_0}^{\hat{t}_1}$$
-
-Теперь свяжем значения вариаций $h_j(t)$ на границах с полными смещениями подвижных концов. Обозначим траектории концов как $x_{1j}(\alpha) = x_j(t_1(\alpha), \alpha)$ и $x_{0j}(\alpha) = x_j(t_0(\alpha), \alpha)$. Их полные производные по параметру $\alpha$ равны:
-
-
+\textbf{Наблюдение}\\
 $$\frac{d x_{1j}(\alpha)}{d \alpha} = \frac{\partial x_j(t_1(\alpha), \alpha)}{\partial t} \frac{d t_1(\alpha)}{d \alpha} + \frac{\partial x_j(t_1(\alpha), \alpha)}{\partial \alpha}$$
-
-При $\alpha = 0$, вводя обозначения вариаций времени $\delta t_0 = \frac{d t_0(0)}{d\alpha}$, $\delta t_1 = \frac{d t_1(0)}{d\alpha}$ и полных смещений концов $\delta x_{0j} = \frac{d x_{0j}(0)}{d \alpha}$, $\delta x_{1j} = \frac{d x_{1j}(0)}{d \alpha}$, находим граничные значения для $h_j(t)$:
-
-
+При $\alpha = 0$, 
+получим граничные значения для $h_j(t)$:
 $$h_j(\hat{t}_1) = \delta x_{1j} - \dot{\hat{x}}_j(\hat{t}_1) \delta t_1, \quad h_j(\hat{t}_0) = \delta x_{0j} - \dot{\hat{x}}_j(\hat{t}_0) \delta t_0$$
-
 Сгруппируем все внеинтегральные слагаемые. Для удобства введем стандартные обозначения для компонент обобщенного импульса:
-
-
 $$p_j\left(t, \hat{x}(t), \dot{\hat{x}}(t)\right) = \frac{\partial f}{\partial \dot{x}_j}\left(t, \hat{x}(t), \dot{\hat{x}}(t)\right)$$
-
 и функции Гамильтона (гамильтониана) задачи:
-
-
 $$H\left(t, \hat{x}(t), p(t)\right) = \sum_{j=1}^n p_j\left(t, \hat{x}(t), \dot{\hat{x}}(t)\right) \dot{\hat{x}}_j(t) - f\left(t, \hat{x}(t), \dot{\hat{x}}(t)\right)$$
-
 Подставим $h_j(\hat{t}_1)$ во внеинтегральный член на правом конце:
 
 
@@ -85,3 +69,32 @@ $$- \left[ \sum_{j=1}^n p_j(\hat{t}_0, \hat{x}(\hat{t}_0), \dot{\hat{x}}(\hat{t}
 $$+ \int_{\hat{t}_0}^{\hat{t}_1} \sum_{j=1}^n \left( \frac{\partial f}{\partial x_j}\left(t, \hat{x}(t), \dot{\hat{x}}(t)\right) - \frac{d}{dt} \left( p_j\left(t, \hat{x}(t), \dot{\hat{x}}(t)\right) \right) \right) h_j(t) \, dt$$
 
 Дифференциальная форма вида $\sum_{j=1}^n p_j d x_j - H(t, x, p) dt$, которая естественным образом определяет структуру этих внеинтегральных (граничных) членов, называется *дифференциальной формой Пуанкаре-Картана*.
+
+\subsection{Условия трансверсальности в простейшей вариационной задаче с подвижными концами}
+
+Рассмотрим задачу минимизации функционала $J = \int_{t_0}^{t_1} f(t, x, \dot{x}) dt \to \min$.
+Пусть движение концов траектории ограничено гладкими многообразиями, заданными уравнениями $\Phi(t_0, x(t_0)) = 0$ и $\Psi(t_1, x(t_1)) = 0$.
+Здесь отображения $\Phi: \mathbb{R}^{n+1} \to \mathbb{R}^k$ и $\Psi: \mathbb{R}^{n+1} \to \mathbb{R}^l$ принадлежат классу гладкости $C^1$.
+
+На оптимальной траектории подынтегральное выражение первой вариации функционала тождественно обращается в нуль в силу выполнения уравнений Эйлера-Лагранжа.
+В таком случае необходимое условие экстремума сводится к равенству нулю суммы граничных членов вариации:
+
+$$[p(t_1)\delta x_1 - H(t_1, x_1, p(t_1))\delta t_1] - [p(t_0)\delta x_0 - H(t_0, x_0, p(t_0))\delta t_0] = 0$$
+
+Поскольку допустимые смещения начального и конечного концов $(\delta t_0, \delta x_0)$ и $(\delta t_1, \delta x_1)$ независимы, каждое из выражений в квадратных скобках обязано равняться нулю по отдельности.
+При этом сами вариации концов не являются абсолютно произвольными — они обязаны лежать в касательных пространствах к соответствующим ограничивающим многообразиям: $\frac{\partial \Phi}{\partial t} \delta t_0 + \nabla_x \Phi \delta x_0 = 0$ и $\frac{\partial \Psi}{\partial t} \delta t_1 + \nabla_x \Psi \delta x_1 = 0$.
+
+Пользуясь правилом множителей Лагранжа, можно заключить, что вектор $(-H(t_0), p(t_0))$ должен быть ортогонален касательной плоскости к начальному многообразию, то есть раскладываться в линейную комбинацию градиентов функций связи.
+Следовательно, существуют множители $\lambda_1, \dots, \lambda_k$, такие что для левого конца выполняется система:
+
+$$p(t_0) = \sum_{i=1}^k \lambda_i \nabla_x \Phi_i(t_0, x_0)$$
+
+$$-H(t_0, x_0, p(t_0)) = \sum_{i=1}^k \lambda_i \frac{\partial \Phi_i(t_0, x_0)}{\partial t}$$
+
+Аналогично, существуют множители $\mu_1, \dots, \mu_l$, такие что для правого конца справедливы соотношения:
+
+$$p(t_1) = \sum_{j=1}^l \mu_j \nabla_x \Psi_j(t_1, x_1)$$
+
+$$-H(t_1, x_1, p(t_1)) = \sum_{j=1}^l \mu_j \frac{\partial \Psi_j(t_1, x_1)}{\partial t}$$
+
+Полученные уравнения выражают собой условия трансверсальности в задачах вариационного исчисления с подвижными концами.
